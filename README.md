@@ -25,3 +25,13 @@ Teams that pair, and share keyboards getting frustrated when they can't `gs` (`g
 In your `~/.bashrc`, or `~/.zshrc`, etc add: `[ -e aliaskeepr.py ] && eval "$(aliaskeepr.py init)"`.
 
 This will add the `ak` alias that will automatically eval, and import profiles. To use, you can simple say `ak someprofile`, and the profile aliases will be imported.
+
+## Example profile
+
+    [aliases]
+    ll = ls -la
+    fpy = find "$@" -iname '*.py'
+    
+- `**ll**` becomes `ls -la`
+- `**ll -h**` becomes `ls -la -h`
+- `**fpy ~**` becomes `find ~ -iname '*.py'`
