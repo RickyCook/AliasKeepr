@@ -61,6 +61,9 @@ def main():
 
     print "function '%s' { eval \"$(cat '%s')\" }" % (alias, command_fn)
 
+  print
+  print '# USAGE: eval "$("%s" "%s")"' % (__file__, args.profile)
+
 
 def write_init_profile(config_dir, init_alias):
   try:
