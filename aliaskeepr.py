@@ -13,15 +13,26 @@ PARSER.add_argument('profile', help="Profile to output config for")
 PARSER.add_argument('-c', '--config',
                     default='~/.akrc',
                     help="Directory where profiles are stored")
+PARSER.add_argument('--init-alias',
+                    default='ak',
+                    help="When using the 'init' profile, the alias "
+                         "name to insert")
 
 
 ALIAS_RE = re.compile('^[A-Za-z0-9 _-]+$')
 
 
+def profile_filename(config_dir, profile_name):
+  return os.path.expanduser('%s/%s.ini' % (config_dir, profile_name))
+
+
 def main():
   args = PARSER.parse_args()
 
-  profile_fn = os.path.expanduser('%s/%s.ini' % (args.config, args.profile))
+  if args.profile == 'init':
+    write_init_profile(args.config, args.init_alias)
+
+  profile_fn = profile_filename(args.config, args.profile)
   profile_commands_dir = os.path.expanduser('%s/.%s' % (args.config, args.profile))
 
   sys.stderr.write("Using profile in '%s'\n" % profile_fn)
@@ -49,6 +60,21 @@ def main():
       handle.write(command)
 
     print "function '%s' { eval \"$(cat '%s')\" }" % (alias, command_fn)
+
+
+def write_init_profile(config_dir, init_alias):
+  try:
+    os.mkdir(os.path.expanduser(config_dir))
+  except OSError:
+    pass
+
+  my_abs_path = os.path.abspath(os.path.expanduser(__file__))
+  with open(profile_filename(config_dir, 'init'), 'w') as handle:
+    handle.write('[aliases]\n')
+    handle.write('{init_alias} = eval "$("{my_path}" "$@")"'.format(
+      init_alias=init_alias,
+      my_path=my_abs_path,
+    ))
 
 
 if __name__ == '__main__':
