@@ -32,6 +32,8 @@ This will add the `ak` alias that will automatically eval, and import profiles. 
     ll = ls -la
     fpy = find "$@" -iname '*.py'
     
-- **`ll`** becomes `ls -la`
-- **`ll -h`** becomes `ls -la -h`
-- **`fpy ~`** becomes `find ~ -iname '*.py'`
+If this is stored in `~/.akrc/example.ini`, and the `ak` alias is setup, typing `ak example` will give you:
+
+- **`ll`** that executes `ls -la`
+- **`ll -h`** that executes `ls -la -h`
+- **`fpy ~`** that executes `find ~ -iname '*.py'`
