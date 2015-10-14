@@ -32,6 +32,6 @@ This will add the `ak` alias that will automatically eval, and import profiles. 
     ll = ls -la
     fpy = find "$@" -iname '*.py'
     
-- `**ll**` becomes `ls -la`
-- `**ll -h**` becomes `ls -la -h`
-- `**fpy ~**` becomes `find ~ -iname '*.py'`
+- **`ll`** becomes `ls -la`
+- **`ll -h`** becomes `ls -la -h`
+- **`fpy ~`** becomes `find ~ -iname '*.py'`
